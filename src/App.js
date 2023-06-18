@@ -1,10 +1,24 @@
-import React from 'react';
-import Login from './pages/Login';
+import React, {useState} from 'react';
+import {Login} from './pages/Login';
+import {Register} from './pages/Register';
+import './App.css';
+
 
 function App() {
-	return (
-		<Login />
-	);
+  const [currentForm,setCurrentForm] = useState('Login');
+
+  const toggleForm = (formName) =>{
+    setCurrentForm(formName);
+  }
+
+  return (
+    <>
+   		<title>The Bugg Trackerr</title>
+    		<div className="App">
+     		{currentForm ==="Login" ? <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>}
+    	</div>
+    </>
+  );
 }
 
 export default App;
