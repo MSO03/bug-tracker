@@ -1,5 +1,4 @@
-limport React, {useState} from "react";
-import "bootstrap/dist/css/bootstrap.css";
+import React, {useState} from "react";
 
 export const Login = (props) => {
    const [email,setEmail] = useState('');
