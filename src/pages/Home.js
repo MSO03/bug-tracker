@@ -1,4 +1,4 @@
-wimport React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BugList from '../components/BugList';
 import {v4 as uuidv4} from 'uuid';
 

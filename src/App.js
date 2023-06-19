@@ -9,13 +9,12 @@ function App() {
   const toggleForm = (formName) =>{
     setCurrentForm(formName);
   }
+  
   return (
     <>
-   <title>The Bugg Trackerr</title>
-    <div className="App">
-
-     {currentForm ==="Login" ? <Login onFormSwitch={toggleForm}/>: <Register onFormSwitch={toggleForm}/>}
-    </div>
+      <div className="App">
+          {currentForm ==="Login" ? <Login onFormSwitch={toggleForm}/>: <Register onFormSwitch={toggleForm}/>}
+      </div>
     </>
   );
 }
