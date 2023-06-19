@@ -1,24 +1,70 @@
-import React, {useState} from "react";
-
+import React, { useState } from 'react';
+import { auth } from '../firebase/firebaseConfig';
+import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import useAuth from '../hooks/useAuth';
 export const Login = (props) => {
-   const [email,setEmail] = useState('');
-   const [password,setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [formError, setFormError] = useState(null);
+  const [err, setErr] = useState(null);
+  const { dispatch } = useAuth();
 
-   const handlesubmit =(e) => {
+  const [signInWithEmailAndPassword, user, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
-   }
+    if (email === '' || password === '') {
+      setFormError('A required field is missing');
+      setTimeout(() => setFormError(null), 3000);
+      return;
+    }
+    try {
+      const res = await signInWithEmailAndPassword(email, password);
+      if (res) {
+        setEmail('');
+        setPassword('');
+      }
+      console.log(error);
+      dispatch({ type: 'LOGIN', payload: res.user });
+    } catch (err) {
+      setErr('password or email is incorrect');
+      setTimeout(() => setErr(null), 3000);
+    }
+  };
 
-   return (
+  return (
     <div className="auth-form-container">
-      <form  className ="login-form" onSubmit={handlesubmit}>
-         <label htmlFor="email"> Email </label>
-         <input value={email} onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" className="form-control" id="exampleFormControlInput1" name="email" />
-         <label htmlFor="password"> Password </label>
-         <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="******" className="form-control" id="exampleInputPassword1" name="password" />
-         <button type="submit" className="btn btn-light w-100 "> Log In </button>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label htmlFor="email"> Email </label>
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="youremail@gmail.com"
+          className="form-control"
+          id="exampleFormControlInput1"
+          name="email"
+        />
+        <label htmlFor="password"> Password </label>
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="******"
+          className="form-control"
+          id="exampleInputPassword1"
+          name="password"
+        />
+        <button type="submit" className="btn btn-light w-100 ">
+          {' '}
+          Log In{' '}
+        </button>
       </form>
-      <button className="btn btn-link" onClick={() => props.onFormSwitch('Register')}> Don't have an account? Register </button>
+      <button className="btn btn-link">
+        <Link to="/signup"> Don't have an account? Register </Link>
+      </button>
     </div>
-   );
-}   
+  );
+};
