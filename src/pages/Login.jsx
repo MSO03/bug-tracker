@@ -45,44 +45,39 @@ export const Login = (props) => {
   },[]);
 
   return (
-    <div className="d-flex align-items-center h-100">
-      <div className="container mt-5">
-        <div className="row justify-content-center mt-5">
-          <div className="col-xl-5 col-md-8">
-            <form onSubmit={handleSubmit} className="bg-white rounded-5 p-5">
-              <div className="form-group">
-                <label htmlFor="email"> Email </label>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  placeholder="youremail@gmail.com"
-                  className="form-control"
-                  name="email"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password"> Password </label>
-                <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="******"
-                className="form-control"
-                name="password"
-              />
-              </div>
-              <button type="submit" className="btn btn-light w-100 ">
-                {' '}
-                Log In{' '}
-              </button>
-              <button className="btn btn-link">
-                <Link to="/signup"> Don't have an account? Register </Link>
-              </button>
-          </form>
+    <div className="d-flex justify-content-center align-content-center mt-5">
+      <form onSubmit={handleSubmit} className="bg-white rounded-4 mt-5 p-5">
+        <div className="form-group">
+          <label For="email"> Email </label>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="youremail@gmail.com"
+            className="form-control"
+            name="email"
+          />
         </div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="password"> Password </label>
+          <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="******"
+          className="form-control"
+          name="password"
+        />
+        </div>
+        <button type="submit" className="btn btn-light w-100 ">
+          {' '}
+          Log In{' '}
+        </button>
+        <button className="btn btn-link">
+          <Link to="/signup"> Don't have an account? Register </Link>
+        </button>
+      </form>
     </div>
-  </div>
+  
   );
 };
