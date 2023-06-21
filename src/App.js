@@ -1,10 +1,9 @@
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import TestHome from './pages/TestHome';
+import Home from './pages/Home';
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from './hooks/useAuth';
-import './App.css';
 import Navbar from './components/NavBar';
 
 function App() {
@@ -16,14 +15,13 @@ function App() {
 
   return (
     <>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/login" element={user ? <TestHome /> : <Login />} />
-          <Route path="/signup" element={user ? <TestHome /> : <Register />} />
-        </Routes>
-      </div>
+      <Navbar />
+            <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route path="/login" element={user ? <Home /> : <Login />} />
+            <Route path="/signup" element={user ? <Home /> : <Register />} />
+            <Route exact path="/home" element={<Home />} />
+            </Routes>
     </>
   );
 }

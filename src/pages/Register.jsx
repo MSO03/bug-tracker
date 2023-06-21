@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import {
   useCreateUserWithEmailAndPassword,
@@ -42,56 +42,77 @@ export const Register = (props) => {
     }
   };
 
+  useEffect(() => {
+    document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
+    document.body.style.backgroundPosition = ' 70% 30%';
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundPosition = '';
+    };
+  },[]);
+
   return (
-    <div className="auth-form-container">
-      <form className="register-form" onSubmit={handleSubmit}>
-        <label htmlFor="name"> Name </label>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          type="name"
-          placeholder="Your Name"
-          className="form-control"
-          id="exampleFormControlInput1"
-        />
-        <label htmlFor="email"> Email </label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="youremail@gmail.com"
-          name="email"
-          className="form-control"
-          id="exampleFormControlInput1"
-        />
-        <label htmlFor="password"> Password </label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="******"
-          id="password"
-          name="password"
-          className="form-control"
-        />
-        <label htmlFor="username"> Username </label>
-        <input
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          type="password"
-          placeholder="******"
-          id="displayName"
-          name="displayName"
-          className="form-control"
-        />
-        <button type="submit" className="btn btn-light">
-          {' '}
-          Create an account{' '}
-        </button>
-      </form>
-      <button className="btn btn-link">
-        <Link to="/login"> Already have an account? Login </Link>
-      </button>
+    <>
+      <div className="d-flex align-items-center h-100">
+        <div className="container mt-3">
+          <div className="row justify-content-center mt-5 ">
+            <div className="col-xl-5 col-md-8">
+              <form onSubmit={handleSubmit} className="bg-white rounded-5 p-5">
+                <div className="form-group">
+                  <label htmlFor="name"> Name </label>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="name"
+                    placeholder="Your Name"
+                    className="form-control"
+                  />
+                </div>
+                <div className="form-group">
+                <label htmlFor="email"> Email </label>
+                <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="youremail@gmail.com"
+                name="email"
+                className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password"> Password </label>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="******"
+                  name="password"
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="username"> Username </label>
+                <input
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  type="password"
+                  placeholder="******"
+                  name="displayName"
+                  className="form-control"
+                />
+              </div>
+              <button type="submit" className="btn btn-light">
+                {' '}
+                Create an account{' '}
+              </button>
+              <button className="btn btn-link">
+                <Link to="/login"> Already have an account? Login </Link>
+              </button>
+            </form> 
+          </div>
+        </div>
+      </div>
     </div>
+  </>
   );
 };

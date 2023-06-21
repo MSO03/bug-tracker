@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import useAuth from '../hooks/useAuth';
+
 export const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,37 +35,54 @@ export const Login = (props) => {
     }
   };
 
+  useEffect(() => {
+    document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
+    document.body.style.backgroundPosition = ' 70% 30%';
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundPosition = '';
+    };
+  },[]);
+
   return (
-    <div className="auth-form-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email"> Email </label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="youremail@gmail.com"
-          className="form-control"
-          id="exampleFormControlInput1"
-          name="email"
-        />
-        <label htmlFor="password"> Password </label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="******"
-          className="form-control"
-          id="exampleInputPassword1"
-          name="password"
-        />
-        <button type="submit" className="btn btn-light w-100 ">
-          {' '}
-          Log In{' '}
-        </button>
-      </form>
-      <button className="btn btn-link">
-        <Link to="/signup"> Don't have an account? Register </Link>
-      </button>
+    <div className="d-flex align-items-center h-100">
+      <div className="container mt-5">
+        <div className="row justify-content-center mt-5">
+          <div className="col-xl-5 col-md-8">
+            <form onSubmit={handleSubmit} className="bg-white rounded-5 p-5">
+              <div className="form-group">
+                <label htmlFor="email"> Email </label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                  placeholder="youremail@gmail.com"
+                  className="form-control"
+                  name="email"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password"> Password </label>
+                <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="******"
+                className="form-control"
+                name="password"
+              />
+              </div>
+              <button type="submit" className="btn btn-light w-100 ">
+                {' '}
+                Log In{' '}
+              </button>
+              <button className="btn btn-link">
+                <Link to="/signup"> Don't have an account? Register </Link>
+              </button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
   );
 };

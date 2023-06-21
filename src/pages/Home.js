@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 const LOCAL_STORAGE_KEY = 'bugTracker.bugs'
 
 export default function Home(){
-	const [bugs, setBugs] = useState([]);
+	const [bugs, setBugs] = useState(['']);
 	const bugNameRef = useRef();
 
 	useEffect(() => {
@@ -42,8 +42,10 @@ export default function Home(){
 		<>	
 			{bugs.length === 0 ? <p>No bugs found</p> : <BugList bugs={bugs} toggleBug={toggleBug} />}
 			<input type="text" ref={bugNameRef}/>
-			<button className="btn btn-primary" onClick={handleAddBug}>Add a new Bug </button>
-			<button className="btn btn-primary" onClick={handleClearBugs}>Delete completed bugs </button>
+			<button className="btn  " onClick={handleAddBug} style={{backgroundColor: '#90EE90'}}>
+			Add a new Bug </button>
+			<button className="btn " onClick={handleClearBugs} style={{backgroundColor: '#90EE90'}}>
+			Delete completed bugs </button>
 			{bugs.length >= 1 ? <div> {bugs.filter(bug => !bug.complete).length} left to do </div> : null }
 		</>
 	);
