@@ -48,7 +48,7 @@ export const Login = (props) => {
     <div className="d-flex justify-content-center align-content-center mt-5">
       <form onSubmit={handleSubmit} className="bg-white rounded-4 mt-5 p-5">
         <div className="form-group">
-          <label For="email"> Email </label>
+          <label htmlFor="email"> Email </label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}

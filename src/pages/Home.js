@@ -5,12 +5,12 @@ import {v4 as uuidv4} from 'uuid';
 const LOCAL_STORAGE_KEY = 'bugTracker.bugs'
 
 export default function Home(){
-	const [bugs, setBugs] = useState(['']);
+	const [bugs, setBugs] = useState([]);
 	const bugNameRef = useRef();
 
 	useEffect(() => {
 		const storedBugs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-		setBugs(storedBugs);
+		setBugs(prevBugs => [...prevBugs,...storedBugs]);
 	}, [])
 
 	useEffect(() => {
