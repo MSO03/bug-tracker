@@ -21,9 +21,14 @@ export const Register = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '' || password === '' || displayName === '') {
+    if (email === '' || password === '' || displayName === '' || name === '') {
       setFormError('A required field is missing');
-      setTimeout(() => setFormError(null), 3000);
+      setTimeout(() => setFormError(null), 12000);
+      return;
+    }
+    if (password.length < 6 ) {
+      setFormError('Password must have at least 6 characters');
+      setTimeout(() => setFormError(null), 12000);
       return;
     }
     try {
@@ -53,7 +58,12 @@ export const Register = (props) => {
 
   return (
     <div className="d-flex justify-content-center align-content-center mt-5">
-      <form onSubmit={handleSubmit} className="bg-white rounded-4 p-5 mt-3">
+      <form onSubmit={handleSubmit} className="bg-white rounded-4 p-5">
+       <div className="text-center">
+          <h4>Account Signup</h4>
+        </div>
+        {formError && <div className="alert alert-danger" role="alert"
+        style={{padding: "5px",margin:"1px"}}> {formError} </div>}
         <div className="form-group">
           <label htmlFor="name"> Name </label>
           <input
@@ -98,7 +108,7 @@ export const Register = (props) => {
           />
         </div>
         <button type="submit" className="btn btn-light w-100">
-          {' '}Sign Up{' '}
+          Sign Up
         </button>
         <button className="btn btn-link">
           <Link to="/login">Already have an account? Login </Link>

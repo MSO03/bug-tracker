@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import useAuth from '../hooks/useAuth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
-export const Login = (props) => {
+export default function ForgotPassword(){
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [formError, setFormError] = useState(null);
-  const { dispatch } = useAuth();
-
-  const [signInWithEmailAndPassword, user, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '' || password === '') {
-      setFormError('A required field is missing');
+    if (email === '') {
+      setFormError('Please enter email');
       setTimeout(() => setFormError(null), 12000);
       return;
     }
     try {
-      const res = await signInWithEmailAndPassword(email, password);
-      if (res) {
-        setEmail('');
-        setPassword('');
+    	await sendPasswordResetEmail(auth, email);
+    	setFormError('Email Sent! Check your inbox for further instructions');
       }
-      dispatch({ type: 'LOGIN', payload: res.user });
-    } catch (err) {
-      setFormError('Password or email is incorrect');
+     catch (err) {
+      setFormError('Failed to reset password');
       setTimeout(() => setFormError(null), 12000);
     }
   };
@@ -42,14 +34,14 @@ export const Login = (props) => {
     };
   },[]);
 
-  return (
-    <div className="d-flex justify-content-center align-content-center mt-5">
+	return(
+	<div className="d-flex justify-content-center align-content-center mt-5">
       <form onSubmit={handleSubmit} style={{width:'33%'}} 
         className="bg-white rounded-4 mt-5 p-5" >
         <div className="text-center">
-          <h4>Account Login</h4>
+          <h4>Password Reset</h4>
         </div>
-        {formError && <div className="alert alert-danger" role="alert" 
+        {formError && <div className="alert alert-primary" role="alert" 
         style={{padding: "5px",margin: "5px"}}> {formError} </div>}
         <div className="form-group">
           <label htmlFor="email"> Email </label>
@@ -62,23 +54,12 @@ export const Login = (props) => {
             name="email"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password"> Password </label>
-          <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          placeholder="******"
-          className="form-control"
-          name="password"
-        />
-        </div>
-        <button type="submit" className="btn btn-light w-100 ">
-          Log In
+        <button type="submit" className="btn btn-light w-100">
+          Reset Password
         </button>
         <div className="d-flex flex-column align-items-start">
         <div class="btn btn-link">
-          <Link to="/forgot-password">Forgot Password? </Link>
+          <Link to="/login">Login</Link>
         </div>
         <button className="btn btn-link">
           <Link to="/signup">Don't have an account? Register</Link>
@@ -86,5 +67,6 @@ export const Login = (props) => {
         </div>
       </form>
     </div>
-  );
-};
+
+	);
+}
