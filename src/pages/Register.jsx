@@ -21,14 +21,9 @@ export const Register = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '' || password === '' || displayName === '' || name === '') {
+    if (email === '' || password === '' || displayName === '') {
       setFormError('A required field is missing');
-      setTimeout(() => setFormError(null), 12000);
-      return;
-    }
-    if (password.length < 6 ) {
-      setFormError('Password must have at least 6 characters');
-      setTimeout(() => setFormError(null), 12000);
+      setTimeout(() => setFormError(null), 3000);
       return;
     }
     try {
@@ -49,21 +44,20 @@ export const Register = (props) => {
 
   useEffect(() => {
     document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
-    document.body.style.backgroundPosition = ' 70% 30%';
+    document.body.style.backgroundPosition = '70% 30%';
+    document.body.style.backgroundRepeat = 'no-repeat'; // Add this line
+  
     return () => {
       document.body.style.backgroundImage = '';
       document.body.style.backgroundPosition = '';
+      document.body.style.backgroundRepeat = '';
     };
-  },[]);
+  }, []);
+  
 
   return (
     <div className="d-flex justify-content-center align-content-center mt-5">
-      <form onSubmit={handleSubmit} className="bg-white rounded-4 p-5">
-       <div className="text-center">
-          <h4>Account Signup</h4>
-        </div>
-        {formError && <div className="alert alert-danger" role="alert"
-        style={{padding: "5px",margin:"1px"}}> {formError} </div>}
+      <form onSubmit={handleSubmit} className="bg-white rounded-4 p-5 mt-3">
         <div className="form-group">
           <label htmlFor="name"> Name </label>
           <input
@@ -108,7 +102,9 @@ export const Register = (props) => {
           />
         </div>
         <button type="submit" className="btn btn-light w-100">
-          Sign Up
+        {error &&  <h1>{error}</h1>}
+          {' '}Sign Up{' '}
+          
         </button>
         <button className="btn btn-link">
           <Link to="/login">Already have an account? Login </Link>
