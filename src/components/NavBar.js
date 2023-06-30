@@ -26,9 +26,10 @@ export default function Navbar() {
         <Link to="/home" className="nav-item nav-link active mx-3"> Home </Link>
           <Link to="/signup" className="nav-item nav-link active mx-3 "> Register </Link>
           {user ? <Link onClick={handleClick} className="nav-item nav-link active mx-3"> Logout </Link> : null} 
+	  <Link to="/about" className="nav-item nav-link active mx-3">About </Link>
           <a href= "https://github.com/MSO03/bugTracker" target="_blank" className="navbar-brand">
             <img src={require("../assets/gitHubLogo.png")}
-            width="30" height="30" className="d-inline-block align-top"/>
+            width="30" height="30" className="d-inline-block mx-3 align-top"/>
           </a>
         </div>
     </nav>  

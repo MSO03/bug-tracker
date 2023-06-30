@@ -8,6 +8,7 @@ import { useState, createContext } from 'react';
 import useAuth from './hooks/useAuth';
 import Navbar from './components/NavBar';
 import BugPage from './pages/BugPage';
+import About from './pages/About';
 
 
 const projectContext = createContext();
@@ -34,12 +35,13 @@ function App() {
         <Route path="/login" element={user ? <Home /> : <Login />} />
         <Route path="/signup" element={user ? <Home /> : <Register />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-	      <Route exact path="/home/*" element={
-		      <projectContext.Provider value={setProject}>
-            <Home />
-		      </projectContext.Provider>
-	      }/>
-	      <Route path="/project/:id" element={<BugPage projectKey={projectRoute} />} />
+	<Route exact path="/home/*" element={
+		<projectContext.Provider value={setProject}>
+	     	 <Home />
+		</projectContext.Provider>
+        }/>
+        <Route path="/project/:id" element={<BugPage projectKey={projectRoute} />} />
+	<Route path="/about" element={<About />}/>
       </Routes>
     </>
   );
