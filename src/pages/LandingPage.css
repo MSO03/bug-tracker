@@ -1,7 +1,8 @@
 #home {
     background: url('https://wallpapers.com/images/hd/green-color-background-wbbokjac6dx8ci3j.jpg') no-repeat center center fixed; 
+   
     padding: 0;
-    height: 550px;
+    height: 100vh;
     flex-direction: column;
     background-position: center;
     -webkit-background-size: cover;

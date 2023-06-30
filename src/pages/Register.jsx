@@ -46,14 +46,19 @@ export const Register = (props) => {
     document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
     document.body.style.backgroundPosition = '70% 30%';
     document.body.style.backgroundRepeat = 'no-repeat'; // Add this line
-  
+    document.body.style.backgroundSize = 'cover';
     return () => {
       document.body.style.backgroundImage = '';
       document.body.style.backgroundPosition = '';
-      document.body.style.backgroundRepeat = '';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundSize = '';
+
     };
   }, []);
+
   
+  
+
 
   return (
     <div className="d-flex justify-content-center align-content-center mt-5">
@@ -103,6 +108,7 @@ export const Register = (props) => {
         </div>
         <button type="submit" className="btn btn-light w-100">
         {error &&  <h1>{error}</h1>}
+          
           {' '}Sign Up{' '}
           
         </button>
