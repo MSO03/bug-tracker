@@ -1,52 +1,53 @@
-import React, { useState, useRef, useEffect } from 'react';
-import BugList from '../components/BugList';
+import React, { useState, useEffect, useRef } from 'react';
+import ProjectList from '../components/ProjectList';
 import {v4 as uuidv4} from 'uuid';
 
-const LOCAL_STORAGE_KEY = 'bugTracker.bugs'
+const LOCAL_STORAGE_KEY = 'bugTracker.projects'
 
-export default function Home(){
-	const [bugs, setBugs] = useState([]);
-	const bugNameRef = useRef();
+export default function Home( ){
+	const [projects, setProjects] = useState([]);
+	const projectTitle = useRef();
+	const projectDescritpion = useRef();
 
 	useEffect(() => {
-		const storedBugs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-		setBugs(prevBugs => [...prevBugs,...storedBugs]);
+		const storedProjects = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+		if (storedProjects){
+			setProjects(prevProjects => [...prevProjects,...storedProjects]);
+		}
 	}, [])
 
 	useEffect(() => {
-		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bugs));
-	}, [bugs])
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(projects));
+	}, [projects])
 
-	function toggleBug(id){
-		const newBugs = [...bugs];
-		const bug = newBugs.find(bug => bug.id === id);
-		bug.complete = !bug.complete;
-		setBugs(newBugs);
+	function deleteAll(e){
+		setProjects([]);
+	}
+
+	function handleAddProject(e){
+		const title = projectTitle.current.value;
+		const description = projectDescritpion.current.value;
+		if (title === '' || description ==='') return;
+		setProjects(prevProjects => {
+			return[...prevProjects, {title:title, id:uuidv4(), description:description}]	
+			}
+		)
+		projectTitle.current.value = null;
+		projectDescritpion.current.value = null;
 	}
 	
-	function handleAddBug(e) {
-		const name = bugNameRef.current.value;
-		if (name === '') return;
-		setBugs(prevBugs => {
-			return[...prevBugs, {id :uuidv4(), name:name, complete: false}]	
-		})
-		bugNameRef.current.value = null;
-	}
-
-	function handleClearBugs(e) {
-		const newBugs = bugs.filter(bug => bug.complete === false);
-		setBugs(newBugs);
-	}
-
 	return(
-		<>	
-			{bugs.length === 0 ? <p>No bugs found</p> : <BugList bugs={bugs} toggleBug={toggleBug} />}
-			<input type="text" ref={bugNameRef}/>
-			<button className="btn  " onClick={handleAddBug} style={{backgroundColor: '#90EE90'}}>
-			Add a new Bug </button>
-			<button className="btn " onClick={handleClearBugs} style={{backgroundColor: '#90EE90'}}>
-			Delete completed bugs </button>
-			{bugs.length >= 1 ? <div> {bugs.filter(bug => !bug.complete).length} left to do </div> : null }
+		<>
+			{projects.length === 0 ? <p>No projects found</p> : 
+			<ProjectList projects={projects} />}
+			<label htmlFor="title"> Project Title: </label>
+			<input type="text" ref={projectTitle} 
+			placeholder="Name of Project"/>
+			<label htmlFor="description"> Project Description: </label>
+			<input type="text" ref={projectDescritpion} 
+			placeholder="Project Description"/>
+			<button className="btn btn-success" type="submit" onClick={handleAddProject}>Add a new project</button>
+			<button className="btn btn-success" onClick={deleteAll}>Delete All Projects</button>
 		</>
 	);
 }

@@ -35,10 +35,13 @@ export const Login = (props) => {
 
   useEffect(() => {
     document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
-    document.body.style.backgroundPosition = ' 70% 30%';
+    document.body.style.backgroundPosition = '70% 30%';
+    document.body.style.backgroundRepeat = 'no-repeat';
+
     return () => {
       document.body.style.backgroundImage = '';
       document.body.style.backgroundPosition = '';
+      document.body.style.backgroundRepeat = 'no-repeat';
     };
   },[]);
 
@@ -77,7 +80,7 @@ export const Login = (props) => {
           Log In
         </button>
         <div className="d-flex flex-column align-items-start">
-        <div class="btn btn-link">
+        <div className="btn btn-link">
           <Link to="/forgot-password">Forgot Password? </Link>
         </div>
         <button className="btn btn-link">
