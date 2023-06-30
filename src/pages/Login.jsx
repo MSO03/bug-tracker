@@ -37,7 +37,7 @@ export const Login = (props) => {
     document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
     document.body.style.backgroundPosition = '70% 30%';
     document.body.style.backgroundRepeat = 'no-repeat';
-
+  
     return () => {
       document.body.style.backgroundImage = '';
       document.body.style.backgroundPosition = '';
