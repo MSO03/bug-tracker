@@ -1,8 +1,31 @@
+
+import React, {useEffect } from 'react';
 export default function About() {
 
+
+	useEffect(() => {
+		document.body.style.backgroundColor = 'green';
+		
+		document.body.style.backgroundSize = 'cover';
+		document.body.style.height = '100vh';
+		document.body.style.color='rgb(232, 236, 10)';
+   		document.body.style.fontSize= '16px';
+    
+	  
+		return () => {
+		  document.body.style.backgroundColor = '';
+		  document.body.style.backgroundSize = '';
+		  document.body.style.color='';
+		  document.body.style.fontSize= '';
+		  
+		};
+	  },[]);
+	
+
 	return(
+		
 		<div className="container">
-			<h3 style={{textAlign:"center"}}>About Bugg Trackerr</h3>
+			<h3 style={{textAlign:"center",}}>About Bugg Trackerr</h3>
 			<p>Welcome to the Bugg Trackerr! </p>
 			<p>At Bugg Trackerr, we believe that every bug is an opportunity for improvement. 
 				We strive to create a seamless and efficient experience for tracking, managing, 
