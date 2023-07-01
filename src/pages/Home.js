@@ -21,6 +21,7 @@ export default function Home( ){
 	}, [projects])
 
 	function deleteAll(e){
+		localStorage.clear();	
 		setProjects([]);
 	}
 
@@ -40,14 +41,18 @@ export default function Home( ){
 		<>
 			{projects.length === 0 ? <p>No projects found</p> : 
 			<ProjectList projects={projects} />}
-			<label htmlFor="title"> Project Title: </label>
-			<input type="text" ref={projectTitle} 
-			placeholder="Name of Project"/>
-			<label htmlFor="description"> Project Description: </label>
-			<input type="text" ref={projectDescritpion} 
-			placeholder="Project Description"/>
-			<button className="btn btn-success" type="submit" onClick={handleAddProject}>Add a new project</button>
-			<button className="btn btn-success" onClick={deleteAll}>Delete All Projects</button>
+			<div className="input-group mb-3">
+				<input type="text" className="form-control" ref={projectTitle} 
+				placeholder="Name of Project"/>
+			</div>
+			<div className="input-group">
+				<input type="text" className="form-control" ref={projectDescritpion} 
+				placeholder="Project Description"/>
+			</div>
+			<button className="btn" style={{backgroundColor: '#90EE90'}} 
+			type="submit" onClick={handleAddProject}>Add Project</button>
+			<button className="btn" style={{backgroundColor: '#90EE90'}} 
+			onClick={deleteAll}>Delete All Projects</button>
 		</>
 	);
 }

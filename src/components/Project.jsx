@@ -9,7 +9,7 @@ export default function Project( {project} ){
 	const setProject = useContext(projectContext);
 		
 	const handleClick = () => {
-		setProject(project.id);
+		setProject(project);
 		navigate(`/project/${project.id}`);
 	}
 

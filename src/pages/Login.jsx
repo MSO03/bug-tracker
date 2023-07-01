@@ -42,6 +42,7 @@ export const Login = (props) => {
     document.body.style.backgroundPosition = '70% 30%';
     document.body.style.backgroundRepeat = 'no-repeat'; 
     document.body.style.backgroundSize = 'cover';
+    document.body.style.height = '100vh';
   
     return () => {
       document.body.style.backgroundImage = '';

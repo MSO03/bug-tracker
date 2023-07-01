@@ -18,10 +18,8 @@ export default function LandingPage() {
         <p style={{fontSize:'21px'}}>Empowering Bug-Free Journeys!</p>
       </div>
       <div className="d-flex align-content-center justify-content-center">
-          <Link className="btn btn-primary" to="/login">Login</Link>
-      </div>
-      <div className="d-flex align-content-center justify-content-center">
-        <div className="down-arrow"></div>
+          <Link className="btn btn-primary mx-2" to="/login">Login</Link>
+          <Link className="btn btn-primary mx-2" to="/signup">Register</Link>
       </div>
     </div>
     

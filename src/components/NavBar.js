@@ -23,10 +23,9 @@ export default function Navbar() {
         Bugg Trackerr
       </Link>
       <div className="navbar-nav flex-sm-row ">
-        <Link to="/home" className="nav-item nav-link active mx-3"> Home </Link>
-          <Link to="/signup" className="nav-item nav-link active mx-3 "> Register </Link>
-          {user ? <Link onClick={handleClick} className="nav-item nav-link active mx-3"> Logout </Link> : null} 
+       	  {user ? <Link to="/home" className="nav-item nav-link active mx-3"> Home </Link> : null}
 	  <Link to="/about" className="nav-item nav-link active mx-3">About </Link>
+	  {user ? <Link onClick={handleClick} className="nav-item nav-link active mx-3"> Logout </Link> : null} 
           <a href= "https://github.com/MSO03/bugTracker" target="_blank" className="navbar-brand">
             <img src={require("../assets/gitHubLogo.png")}
             width="30" height="30" className="d-inline-block mx-3 align-top"/>
