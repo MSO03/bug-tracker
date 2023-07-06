@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { auth } from "../firebase/firebaseConfig";
 import {
   useCreateUserWithEmailAndPassword,
@@ -19,6 +19,16 @@ export const Register = (props) => {
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile] = useUpdateProfile(auth);
   const { dispatch } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const passElement = useRef();
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+    passElement.placeholder = " ";
+    passElement.type = "email";
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +70,9 @@ export const Register = (props) => {
   return (
     <div className="d-flex justify-content-center align-content-center mt-5">
       <form onSubmit={handleSubmit} className="bg-white rounded-4 p-5 mt-3">
+      <div className="account-login">
+        <h4>Create new Account</h4>
+      </div>
         <div className="form-group">
           <label htmlFor="name"> Name </label>
           <input
@@ -86,11 +99,22 @@ export const Register = (props) => {
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type="password"
             placeholder="******"
-            name="password"
             className="form-control"
+            name="password"
+            type={showPassword ? "text" : "password"}
+            ref={passElement}
           />
+          <div align="right">
+            <label>
+              Show Password:
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={toggleShowPassword}
+              />
+            </label>
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="username"> Username </label>
