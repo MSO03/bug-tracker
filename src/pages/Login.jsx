@@ -101,10 +101,10 @@ export const Login = (props) => {
           type={showPassword ? 'text' : 'password'}
           ref={passElement}
         />
-        <div>
-        <label>
+        <div align = "right">
+        <label > 
         Show Password:
-        <input type="checkbox" checked={showPassword} onChange={toggleShowPassword} />
+        <input type="checkbox" checked={showPassword} onChange={toggleShowPassword}  />
       </label>
         </div>
         </div>
