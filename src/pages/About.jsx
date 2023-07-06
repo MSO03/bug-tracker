@@ -1,6 +1,7 @@
 
 import React, {useEffect } from 'react';
- import background from './../assets/aboutimage.png';
+ import background from './../assets/image.jpeg';
+
 
 export default function About() {
 
