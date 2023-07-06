@@ -36,7 +36,7 @@ export const Login = (props) => {
       if (res) {
         setEmail("");
         setPassword("");
-        navigate.push("/home");
+        navigate("/home");
       }
       dispatch({ type: "LOGIN", payload: res.user });
     } catch (err) {
