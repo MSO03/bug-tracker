@@ -1,18 +1,19 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import BugList from '../components/BugList';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router';
 
 
 export default function BugPage( ){
 	const [bugs, setBugs] = useState([]);
 	const bugNameRef = useRef();
-	const projectKey = document.URL.split('/').pop();
+	const projectKey = useParams();
 
 	useEffect(() => {
-		if(localStorage.getItem(projectKey) === null){
-			localStorage.setItem(projectKey, uuidv4());
+		if(localStorage.getItem(projectKey.id) === null){
+			localStorage.setItem(projectKey.id, uuidv4());
 		};
-		const LOCAL_STORAGE_KEY = localStorage.getItem(projectKey);
+		const LOCAL_STORAGE_KEY = localStorage.getItem(projectKey.id);
 		const storedBugs = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 		if (storedBugs){
 			setBugs(prevBugs => [...prevBugs,...storedBugs]);
@@ -21,7 +22,7 @@ export default function BugPage( ){
 		
 
 	useEffect(() => {
-		const LOCAL_STORAGE_KEY = localStorage.getItem(projectKey);
+		const LOCAL_STORAGE_KEY = localStorage.getItem(projectKey.id);
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bugs));
 	}, [bugs])
 

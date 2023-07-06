@@ -6,7 +6,8 @@ import {
 } from "react-firebase-hooks/auth";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
-import "./Submitbuttons.css";
+
+
 export const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -102,7 +103,7 @@ export const Register = (props) => {
             className="form-control"
           />
         </div>
-        <button id="regbtn" type="submit" className="btn btn-light w-100">
+        <button type="submit" className="btn btn-primary w-100">
           {error && <h1>{error}</h1>} Sign Up{" "}
         </button>
         <button className="btn btn-link">

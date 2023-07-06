@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import useAuth from "../hooks/useAuth";
-import "./Submitbuttons.css";
+
 export const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -114,11 +114,11 @@ export const Login = (props) => {
             </label>
           </div>
         </div>
-        <button id="loginbtn" type="submit" className="btn btn-light w-100">
+        <button type="submit" className="btn btn-primary w-100">
           Log In
         </button>
         <div className="d-flex flex-column align-items-start">
-          <div class="btn btn-link">
+          <div className="btn btn-link">
             <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <button className="btn btn-link">

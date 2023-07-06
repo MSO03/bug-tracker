@@ -1,52 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProjectList from '../components/ProjectList';
 import {v4 as uuidv4} from 'uuid';
-
-const LOCAL_STORAGE_KEY = 'bugTracker.projects'
+import { collection, addDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
+import {db} from '../firebase/firebaseConfig';
+import useAuth from '../hooks/useAuth';
+import useCollection from '../hooks/useCollection';
+import {doc, deleteDoc} from 'firebase/firestore';
 
 export default function Home( ){
 	const [projects, setProjects] = useState([]);
 	const projectTitle = useRef();
-	const projectDescritpion = useRef();
+	const projectDescription = useRef();
+	const { user } = useAuth();
+	const userEmail = user?.email ?? '';
+ 	const { error, loading, documents } = useCollection("Projects" ,["users", "array-contains",
+   	"w@sf.com"]
+	);
 
 	useEffect(() => {
-		const storedProjects = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-		if (storedProjects){
-			setProjects(prevProjects => [...prevProjects,...storedProjects]);
-		}
-	}, [])
+		setProjects(documents);	
+	}, [documents])
 
-	useEffect(() => {
-		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(projects));
-	}, [projects])
-
-	function deleteAll(e){
-		localStorage.clear();	
-		setProjects([]);
+	function deleteAll() {
+		console.log("delete");
 	}
 
-	function handleAddProject(e){
+
+	async function handleAddProject(e){
 		const title = projectTitle.current.value;
-		const description = projectDescritpion.current.value;
+		const description = projectDescription.current.value;
 		if (title === '' || description ==='') return;
-		setProjects(prevProjects => {
-			return[...prevProjects, {title:title, id:uuidv4(), description:description}]	
-			}
-		)
+		//new
+		const docRef = await addDoc(collection(db, "Projects"), {
+			title : projectTitle.current.value,
+			description : projectDescription.current.value,
+			owner : user.email,
+			users: arrayUnion(user.email)
+		});
+		//new
 		projectTitle.current.value = null;
-		projectDescritpion.current.value = null;
+		projectDescription.current.value = null;
+
 	}
 	
 	return(
 		<>
-			{projects.length === 0 ? <p>No projects found</p> : 
+			{loading === true ? <h1> Loading Projects...</h1> : null}
+			{error && <p>{error}</p>}
+			{projects === null ? <p>No projects found</p> : 
 			<ProjectList projects={projects} />}
 			<div className="input-group mb-3">
 				<input type="text" className="form-control" ref={projectTitle} 
 				placeholder="Name of Project"/>
 			</div>
 			<div className="input-group">
-				<input type="text" className="form-control" ref={projectDescritpion} 
+				<input type="text" className="form-control" ref={projectDescription} 
 				placeholder="Project Description"/>
 			</div>
 			<button className="btn" style={{backgroundColor: '#90EE90'}} 

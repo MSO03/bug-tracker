@@ -1,38 +1,38 @@
-import { useState, useEffect, useRef } from "react";
-import { db } from "../firebase/firebaseConfig";
+import { db } from '../firebase/firebaseConfig';
+import {
+  onSnapshot,
+  query,
+  where,
+  orderBy,
+  collection,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
-export default function useCollection(collection, _query, _order, id) {
+export default function useCollection(collectionName, queryArr) {
+  const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
-  const [pending, setPending] = useState(true);
-  const [documents, setData] = useState(null);
-  const query = useRef(_query).current;
-  const orderby = useRef(_order).current;
+  const [loading, setLoading] = useState(false);
 
+  const colRef = collection(db, collectionName);
+  let q = query(colRef, where(...queryArr));
   useEffect(() => {
-    let ref = db.collection(collection);
-    if (id) ref = ref.doc(id);
-    if (query) ref = ref.where(...query);
-    if (orderby) ref = ref.orderBy(...orderby);
-
-    const unsub = ref.onSnapshot(
-      (snapshot) => {
-        setPending(true);
-        let results = [];
-        snapshot.forEach((doc) => {
-          results.push({ id: doc.id, ...doc.data() });
+    setLoading(true);
+    const unsub = onSnapshot(
+      q,
+      (querySnapshot) => {
+        let result = [];
+        querySnapshot.forEach((doc) => {
+          result.push({ docId: doc.id, ...doc.data() });
         });
-        setData(results);
-        setError(null);
-        setPending(false);
+        setDocuments(result);
+        setLoading(false);
       },
       (err) => {
-        setError(err.message);
-        setPending(false);
+        setLoading(false);
       }
     );
-
     return () => unsub();
-  }, [collection, orderby, query, id]);
+  }, []);
 
-  return { error, pending, documents };
+  return { documents, error, loading };
 }
