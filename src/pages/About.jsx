@@ -4,7 +4,7 @@ import React, {useEffect } from 'react';
 
 export default function About() {
 
-	useEffect(() => {
+	useEffect(() =>{
 		document.body.style.backgroundImage = `url(${background})`;	
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.height = '100vh';
