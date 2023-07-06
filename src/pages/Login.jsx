@@ -65,7 +65,7 @@ export const Login = (props) => {
     <div className="d-flex justify-content-center align-content-center mt-5">
       <form
         onSubmit={handleSubmit}
-        style={{ width: "33%" }}
+        style={{ width: "33%" }} // Account Login Window width % of screen width
         className="bg-white rounded-4 mt-5 p-5"
       >
         <div className="text-center">
