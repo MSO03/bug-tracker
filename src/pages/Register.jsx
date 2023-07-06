@@ -100,8 +100,8 @@ export const Register = (props) => {
           <input
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            type="password"
-            placeholder="******"
+            type="username"
+            placeholder="Your Username"
             name="displayName"
             className="form-control"
           />

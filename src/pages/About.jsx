@@ -1,18 +1,20 @@
 
 import React, {useEffect } from 'react';
+ import background from './../assets/aboutimage.png';
+
 export default function About() {
 
-
 	useEffect(() => {
-		document.body.style.backgroundColor = 'green';
-		
+		document.body.style.backgroundImage = `url(${background})`;	
 		document.body.style.backgroundSize = 'cover';
 		document.body.style.height = '100vh';
-		document.body.style.color='rgb(232, 236, 10)';
-   		document.body.style.fontSize= '16px';
+		document.body.style.color='yellow';
+   		document.body.style.fontSize= '17.5px';
+		
     
 	  
 		return () => {
+			document.body.style.backgroundImage = '';
 		  document.body.style.backgroundColor = '';
 		  document.body.style.backgroundSize = '';
 		  document.body.style.color='';
@@ -21,10 +23,12 @@ export default function About() {
 		};
 	  },[]);
 	
+	
+	
 
 	return(
 		
-		<div className="container">
+		<div className="container" >
 			<h3 style={{textAlign:"center",}}>About Bugg Trackerr</h3>
 			<p>Welcome to the Bugg Trackerr! </p>
 			<p>At Bugg Trackerr, we believe that every bug is an opportunity for improvement. 
@@ -62,6 +66,7 @@ export default function About() {
 			bugs and deliver exceptional software!
 			</p>
 			<p>Happy tracking,<br/>The Bugg Trackerr Team</p>
+			
 		</div>
 	
 	);

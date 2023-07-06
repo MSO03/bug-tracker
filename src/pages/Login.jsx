@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { auth } from '../firebase/firebaseConfig';
 import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import useAuth from '../hooks/useAuth';
-// import mysql from 'mysql2';
+
+
 
  
 export const Login = (props) => {
@@ -11,7 +13,18 @@ export const Login = (props) => {
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState(null);
   const { dispatch } = useAuth();
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+    passElement.placeholder = ' ';
+    passElement.type ='email';
+  };
 
+  const passElement = useRef();
+
+ 
   const [signInWithEmailAndPassword, user, error] =
     useSignInWithEmailAndPassword(auth);
 
@@ -27,6 +40,8 @@ export const Login = (props) => {
       if (res) {
         setEmail('');
         setPassword('');
+        navigate.push('/home');
+       
       }
       dispatch({ type: 'LOGIN', payload: res.user });
     } catch (err) {
@@ -79,11 +94,19 @@ export const Login = (props) => {
           <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="password"
+         
           placeholder="******"
           className="form-control"
           name="password"
+          type={showPassword ? 'text' : 'password'}
+          ref={passElement}
         />
+        <div>
+        <label>
+        Show Password:
+        <input type="checkbox" checked={showPassword} onChange={toggleShowPassword} />
+      </label>
+        </div>
         </div>
         <button type="submit" className="btn btn-light w-100 ">
           Log In
