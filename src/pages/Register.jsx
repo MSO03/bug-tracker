@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { auth } from '../firebase/firebaseConfig';
+import { useState, useEffect } from "react";
+import { auth } from "../firebase/firebaseConfig";
 import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
-} from 'react-firebase-hooks/auth';
-import useAuth from '../hooks/useAuth';
-import { Link } from 'react-router-dom';
-
+} from "react-firebase-hooks/auth";
+import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import "./Submitbuttons.css";
 export const Register = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [formError, setFormError] = useState('');
-  const [signUpErr, setSignUpErr] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [formError, setFormError] = useState("");
+  const [signUpErr, setSignUpErr] = useState("");
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile] = useUpdateProfile(auth);
@@ -21,8 +21,8 @@ export const Register = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === '' || password === '' || displayName === '') {
-      setFormError('A required field is missing');
+    if (email === "" || password === "" || displayName === "") {
+      setFormError("A required field is missing");
       setTimeout(() => setFormError(null), 3000);
       return;
     }
@@ -30,12 +30,12 @@ export const Register = (props) => {
       const res = await createUserWithEmailAndPassword(email, password);
       const update = await updateProfile({ displayName });
       if (res) {
-        dispatch({ type: 'LOGIN', payload: res.user });
+        dispatch({ type: "LOGIN", payload: res.user });
       }
       if (update) {
-        setDisplayName('');
-        setEmail('');
-        setPassword('');
+        setDisplayName("");
+        setEmail("");
+        setPassword("");
       }
     } catch (error) {
       setSignUpErr(error.message);
@@ -43,22 +43,18 @@ export const Register = (props) => {
   };
 
   useEffect(() => {
-    document.body.style.backgroundImage = 'url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)';
-    document.body.style.backgroundPosition = '70% 30%';
-    document.body.style.backgroundRepeat = 'no-repeat'; // Add this line
-    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundImage =
+      "url(https://cdn.wallpapersafari.com/5/88/FnDoyH.jpg)";
+    document.body.style.backgroundPosition = "70% 30%";
+    document.body.style.backgroundRepeat = "no-repeat"; // Add this line
+    document.body.style.backgroundSize = "cover";
     return () => {
-      document.body.style.backgroundImage = '';
-      document.body.style.backgroundPosition = '';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundSize = '';
-
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundPosition = "";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundSize = "";
     };
   }, []);
-
-  
-  
-
 
   return (
     <div className="d-flex justify-content-center align-content-center mt-5">
@@ -82,7 +78,7 @@ export const Register = (props) => {
             placeholder="youremail@gmail.com"
             name="email"
             className="form-control"
-            />
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password"> Password </label>
@@ -106,16 +102,13 @@ export const Register = (props) => {
             className="form-control"
           />
         </div>
-        <button type="submit" className="btn btn-light w-100">
-        {error &&  <h1>{error}</h1>}
-          
-          {' '}Sign Up{' '}
-          
+        <button id="regbtn" type="submit" className="btn btn-light w-100">
+          {error && <h1>{error}</h1>} Sign Up{" "}
         </button>
         <button className="btn btn-link">
           <Link to="/login">Already have an account? Login </Link>
         </button>
-      </form> 
+      </form>
     </div>
   );
 };
