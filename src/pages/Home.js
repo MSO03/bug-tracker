@@ -14,7 +14,7 @@ export default function Home( ){
 	const { user } = useAuth();
 	const userEmail = user?.email ?? '';
  	const { error, loading, documents } = useCollection("Projects" ,["users", "array-contains",
-   	"w@sf.com"]
+   	userEmail]
 	);
 
 	useEffect(() => {
@@ -30,14 +30,12 @@ export default function Home( ){
 		const title = projectTitle.current.value;
 		const description = projectDescription.current.value;
 		if (title === '' || description ==='') return;
-		//new
 		const docRef = await addDoc(collection(db, "Projects"), {
 			title : projectTitle.current.value,
 			description : projectDescription.current.value,
 			owner : user.email,
 			users: arrayUnion(user.email)
 		});
-		//new
 		projectTitle.current.value = null;
 		projectDescription.current.value = null;
 

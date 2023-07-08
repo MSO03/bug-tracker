@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import { Auth } from '../context/authContext';
-const useAuth = () => {
+
+export default function useAuth() {
   const context = useContext(Auth);
-  if (!context) {
-    console.log('Breach of context');
+  if (context === undefined) {
+    throw new Error('Context not accesible');
   }
 
-  return context;
-};
-
-export default useAuth;
+return context;
+}

@@ -13,7 +13,7 @@ export default function Project( {project} ){
   				<div className="card-body">
     				<h5 className="card-title">{project.title}</h5>
     				<p className="card-text">{project.description}</p>
-    				<Link to={`/project/${project.id}`}>Go to project</Link>
+    				<Link to={`/project/${project.docId}`}>Go to project</Link>
 				</div>
   			</div>
   		</div>
