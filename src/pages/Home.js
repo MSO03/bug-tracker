@@ -52,7 +52,7 @@ export default function Home( ){
 				placeholder="Name of Project"/>
 			</div>
 			<div className="input-group">
-				<input type="text" className="form-control" ref={projectDescription} 
+				<textarea type="text" className="form-control" ref={projectDescription} 
 				placeholder="Project Description"/>
 			</div>
 			<button className="btn" style={{backgroundColor: '#90EE90'}} 
