@@ -16,7 +16,6 @@ export default function Home( ){
  	const { error, loading, documents } = useCollection("Projects" ,["users", "array-contains",
    	userEmail]
 	);
-
 	useEffect(() => {
 		setProjects(documents);	
 	}, [documents])

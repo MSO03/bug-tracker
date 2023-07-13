@@ -17,7 +17,7 @@ function App() {
     setCurrentForm(formName);
   };
 
-  return (
+ return (
     <>
       <Navbar />
       <Routes>
