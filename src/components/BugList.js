@@ -1,14 +1,17 @@
 import React from 'react'
 import Bug from './Bug';
 
-export default function BugList( {bugs, toggleBug} ){
+export default function BugList( { bugs } ){
 
 	return (
-		<ol className="list-group list-group-numbered">
-		{	bugs.map((bug, index) => {
-			return <Bug bug={bug} key={bug.docId} toggleBug={toggleBug} />	
-		})}
-		</ol>
+		<div className="accordion" id="accordionBugs">
+			<div className="accordion-item" >
+			{	bugs.map((bug, index) => {
+				return <Bug bug={bug} key={bug.docId} 
+				/>	
+			})}
+			</div>
+		</div>
 	);
 
 }
