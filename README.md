@@ -1,6 +1,3 @@
-
-
-```markdown
 # Bug Tracker
 
 Bug Tracker is a bug tracking system designed to help teams manage and prioritize software issues efficiently.. It is coded with JavaScript, React, HTML, CSS, and integrates seamlessly with Firebase for secure user authentication and storage of login credentials.
@@ -73,5 +70,3 @@ Contributions are welcome! If you'd like to contribute to Bug Tracker, please fo
 3. Make your changes and commit them: `git commit -m 'Add new feature'`
 4. Push to the branch: `git push origin feature/new-feature`
 5. Submit a pull request.
-
-```
