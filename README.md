@@ -1,6 +1,6 @@
 # Bug Tracker
 
-Bug Tracker is a bug tracking system designed to help teams manage and prioritize software issues efficiently.. It is coded with JavaScript, React, HTML, CSS, and integrates seamlessly with Firebase for secure user authentication and storage of login credentials.
+Bug Tracker is a bug tracking system designed to help teams manage and prioritize software issues efficiently. It is coded with JavaScript, React, HTML, CSS, and integrates seamlessly with Firebase for secure user authentication and storage of login credentials.
 
 ## Features
 
